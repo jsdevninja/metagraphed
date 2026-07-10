@@ -17,10 +17,15 @@ const COMPARE_FIXTURE = JSON.parse(
 const BASE_URL = process.env.UI_BASE_URL ?? "http://127.0.0.1:8085";
 const VARIANT = process.env.VARIANT === "before" ? "before" : "after";
 const COMPARE_NETUIDS = [1, 8, 19, 64];
-const VIEWPORTS = [
+const VIEWPORT_FILTER = process.env.VIEWPORT_FILTER;
+const ALL_VIEWPORTS = [
   { name: "mobile", width: 375, height: 812 },
   { name: "tablet", width: 768, height: 1024 },
+  { name: "desktop", width: 1280, height: 800 },
 ];
+const VIEWPORTS = VIEWPORT_FILTER
+  ? ALL_VIEWPORTS.filter((v) => v.name === VIEWPORT_FILTER)
+  : ALL_VIEWPORTS;
 const THEMES = ["light", "dark"];
 
 async function setTheme(page, theme) {
